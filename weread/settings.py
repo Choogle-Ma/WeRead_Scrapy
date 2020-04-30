@@ -19,7 +19,7 @@ NEWSPIDER_MODULE = 'weread.spiders'
 #USER_AGENT = 'weread (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
-ROBOTSTXT_OBEY = True
+ROBOTSTXT_OBEY = False
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
@@ -33,16 +33,20 @@ ROBOTSTXT_OBEY = True
 #CONCURRENT_REQUESTS_PER_IP = 16
 
 # Disable cookies (enabled by default)
-#COOKIES_ENABLED = False
+COOKIES_ENABLED = False
+
 
 # Disable Telnet Console (enabled by default)
 #TELNETCONSOLE_ENABLED = False
 
 # Override the default request headers:
-#DEFAULT_REQUEST_HEADERS = {
-#   'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-#   'Accept-Language': 'en',
-#}
+DEFAULT_REQUEST_HEADERS = {
+    'Accept': 'application/json, text/plain, */*',
+    'Accept-encoding': 'gzip, deflate, br',
+    'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8',
+    'User-agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36',
+    'Cookie': 'pgv_pvid=7490065082; pac_uid=0_ba2b883b4ada0; _ga=GA1.2.489518591.1565788587; pgv_pvi=1681669120; RK=pOJUpu/8Y6; ptcz=ea4d1bdc2e715d376f5752f33026be832dcbdbcb35b79e35f24cebac54616818; tvfe_boss_uuid=041620c59dcf5f8d; eas_sid=X1b508E1k0m826Z129t8y3u8j9; XWINDEXGREY=0; ptui_loginuin=840863332@qq.com; wr_name=; wr_avatar=; wr_gid=219218847; wr_vid=327274927; wr_skey=Hfedyreq; wr_pf=2; wr_rt=web%40Z8gx3A2Vmxqzva7wvsT_WL; wr_localvid=1393280081381d1af13987a; wr_gender=0',
+}
 
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html

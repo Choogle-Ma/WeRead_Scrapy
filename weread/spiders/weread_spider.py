@@ -10,34 +10,12 @@ class weread_spider(scrapy.Spider):
     allowed_domains = ["qq.com"]
 
     def start_requests(self):
-        vip_url = "http://fcww14.com/categories/058ed3f9acd0842ef11c4b6a25ebdb5b/"
-        ajax_url = "http://fcww14.com/categories/058ed3f9acd0842ef11c4b6a25ebdb5b/?mode=async&function=get_block&block_id=list_videos_common_videos_list&sort_by=most_favourited&_=1511968509508"
+        url_100000 = "https://weread.qq.com/web/bookListInCategory/100000"
         requests = []
-        native_url = "http://fcww14.com/categories/27f8a5c9ce83cbfa7b70fc5c9a73a082/"
-        mostpopular_url = "http://fcww14.com/most-popular/"
 
         for i in range(1, 21):
-            if i < 10:
-                formdata_t = {
-                    "mode": "async",
-                    "function": "get_block",
-                    "block_id": "list_videos_common_videos_list",
-                    # "sort_by": "most_favourited",
-                    "sort_by": "video_viewed",
-                    "from": "0"+str(i),
-                    "_": "1512570459528"
-                }
-            else:
-                formdata_t = {
-                    "mode": "async",
-                    "function": "get_block",
-                    "block_id": "list_videos_common_videos_list",
-                    # "sort_by": "most_favourited",
-                    "sort_by": "video_viewed",
-                    "from": str(i),
-                    "_": "1512570459528"
-                }
-            request = scrapy.FormRequest(url=mostpopular_url, formdata=formdata_t, callback=self.parse)
+
+            request = scrapy.Request(url=mostpopular_url,  callback=self.parse)
             requests.append(request)
             # time.sleep(0.5)
         return requests
