@@ -16,7 +16,7 @@ class weread_spider(scrapy.Spider):
 
         for category in CATEGORY_COUNT:
             totalcount = CATEGORY_COUNT[category]
-            page = totalcount//20 + 1
+            page = 1000//20 + 1
             for i in range(1, page):
                 maxindex = 20 * i
                 url_t = url_root + str(category) + '?maxIndex=' + str(maxindex)
