@@ -1,16 +1,17 @@
 import scrapy, logging,  json
 import time
 from weread.items import WereadItem
+from weread.category import noval_category
 
 hosturl = "https://weread.qq.com/"
 
 
 class weread_spider(scrapy.Spider):
-    name = "weread"
+    name = "category"
     allowed_domains = ["weread.qq.com"]
 
     def start_requests(self):
-        url_100000 = "https://weread.qq.com/web/bookListInCategory/100000"
+        url_100000 = "https://weread.qq.com/web/bookListInCategory/"
         requests = []
 
         for i in range(1, 2):
