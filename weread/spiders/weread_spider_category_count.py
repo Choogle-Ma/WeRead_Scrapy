@@ -11,19 +11,26 @@ class weread_spider(scrapy.Spider):
     allowed_domains = ["weread.qq.com"]
 
     def start_requests(self):
-        url_100000 = "https://weread.qq.com/web/bookListInCategory/"
+        url_root = "https://weread.qq.com/web/bookListInCategory/"
         requests = []
 
-        for i in range(1, 2):
-            url_t = url_100000 + '?maxIndex=' + str(20*i)
-            request = scrapy.Request(url=url_t,  callback=self.parse)
+        category_list = []
+        for i in noval_category:
+            category_list_t = noval_category[i]
+            category_list.extend(category_list_t)
+
+        for category in category_list:
+            url_t = url_root + str(category)
+            request = scrapy.Request(url=url_t, callback=self.parse, meta={'category': category})
             requests.append(request)
-            # time.sleep(0.5)
+
         return requests
 
     def parse(self, response):
         # logging.info(response.text)
         item = WereadItem()
+        item['category'] = response.meta['category']
+
         data = json.loads(response.text)
         item['books'] = data['books']
         item['synckey'] = data['synckey']

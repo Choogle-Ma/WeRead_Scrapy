@@ -1,6 +1,7 @@
 import scrapy, logging,  json
 import time
 from weread.items import WereadItem
+from weread.category import CATEGORY_COUNT
 
 hosturl = "https://weread.qq.com/"
 
@@ -10,30 +11,30 @@ class weread_spider(scrapy.Spider):
     allowed_domains = ["weread.qq.com"]
 
     def start_requests(self):
-        url_100000 = "https://weread.qq.com/web/bookListInCategory/100000"
+        url_root = "https://weread.qq.com/web/bookListInCategory/"
         requests = []
 
-        for i in range(1, 2):
-            url_t = url_100000 + '?maxIndex=' + str(20*i)
-            request = scrapy.Request(url=url_t,  callback=self.parse)
-            requests.append(request)
-            # time.sleep(0.5)
+        for category in CATEGORY_COUNT:
+            totalcount = CATEGORY_COUNT[category]
+            page = totalcount//20 + 1
+            for i in range(1, page):
+                maxindex = 20 * i
+                url_t = url_root + str(category) + '?maxIndex=' + str(maxindex)
+                request = scrapy.Request(url=url_t, callback=self.parse, meta={'category': category, 'index': maxindex})
+                requests.append(request)
+
         return requests
 
     def parse(self, response):
         # logging.info(response.text)
         item = WereadItem()
+        item['category'] = response.meta['category']
+        item['index'] = response.meta['index']
+
         data = json.loads(response.text)
         item['books'] = data['books']
         item['synckey'] = data['synckey']
         item['hasMore'] = data['hasMore']
         item['totalCount'] = data['totalCount']
-
-        # item.synckey =
-        # t_ajax = response.xpath("//ul[@id='list_videos_common_videos_list_sort_list']/li[last()]").extract()
-        # item['ajax'] = t_ajax
-
-        # t = response.body
-        # logging.info(t)
 
         yield item

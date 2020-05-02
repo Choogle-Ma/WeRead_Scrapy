@@ -15,7 +15,8 @@ class WereadItem(scrapy.Item):
     synckey = scrapy.Field()
     totalCount = scrapy.Field()
     books = scrapy.Field()
-
+    category = scrapy.Field()
+    index = scrapy.Field()
 #
 # class BookItem(scrapy.Item):
 #     bookInfo = scrapy.Field()
